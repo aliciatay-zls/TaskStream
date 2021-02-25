@@ -48,4 +48,12 @@ public class Main {
             }
         }
     }
+
+    public static void printDeadlinesWithStreams(ArrayList<Task> tasks) {
+        System.out.println("Printing deadlines using streams");
+        tasks.stream()
+                //predicate //lambda //t is data elm we are working on// returns a filtered stream
+                .filter((t) -> t instanceof Deadline)
+                .forEach(System.out::println); //for each item in the filtered stream, print
+    }
 }
