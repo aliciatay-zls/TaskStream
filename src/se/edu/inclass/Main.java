@@ -35,10 +35,23 @@ public class Main {
         return count;
     }
 
+    private static int countDeadlinesWithStreams(ArrayList<Task> tasksData) {
+        int count = (int)tasksData.stream()
+                .filter((t) -> t instanceof Deadline)
+                .count(); //aggregate function
+        return count;
+    }
+
     public static void printData(ArrayList<Task> tasksData) {
         for (Task t : tasksData) {
             System.out.println(t);
         }
+    }
+
+    public static void printDataWithStreams(ArrayList<Task> tasksData) {
+        System.out.println("Printing data using streams");
+        tasksData.stream() //convert into a stream
+                .forEach(System.out::println); //for each elm in the stream, do this operation //class::method
     }
 
     public static void printDeadlines(ArrayList<Task> tasksData) {
