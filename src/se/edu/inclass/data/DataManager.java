@@ -48,6 +48,7 @@ public class DataManager {
             System.out.println("empty file");
             throw new IOException();
         }
+        //readAllLines returns a list object, so need to cast it
         ArrayList<String> dataItems = (ArrayList) Files.readAllLines(dataFile.toPath(), Charset.defaultCharset());
 
         return dataItems;

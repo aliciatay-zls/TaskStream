@@ -21,8 +21,15 @@ public class Main {
 
         System.out.println("Printing deadlines");
         printDeadlines(tasksData);
-        System.out.println("Total number of deadlines: " + countDeadlines(tasksData));
+
+        System.out.println("Total number of deadlines: "
+                + countDeadlines(tasksData));
+
+        System.out.println("Printing deadlines (using streams, sorted)");
         printDeadlinesUsingStreams(tasksData);
+
+        System.out.println("Total number of deadlines (using streams): "
+                + countDeadlinesWithStreams(tasksData));
 
         ArrayList<Task> filteredList = filterTasksByString(tasksData, "11");
         System.out.println("Filtered task list:");
@@ -39,10 +46,23 @@ public class Main {
         return count;
     }
 
+    private static int countDeadlinesWithStreams(ArrayList<Task> tasksData) {
+        int count = (int)tasksData.stream()
+                .filter((t) -> t instanceof Deadline)
+                .count(); //aggregate function
+        return count;
+    }
+
     public static void printData(ArrayList<Task> tasksData) {
         for (Task t : tasksData) {
             System.out.println(t);
         }
+    }
+
+    public static void printDataWithStreams(ArrayList<Task> tasksData) {
+        System.out.println("Printing data using streams");
+        tasksData.stream() //convert into a stream
+                .forEach(System.out::println); //for each elm in the stream, do this operation //class::method
     }
 
     public static void printDeadlines(ArrayList<Task> tasksData) {
@@ -55,6 +75,7 @@ public class Main {
 
     public static void printDeadlinesUsingStreams(ArrayList<Task> tasksData) {
         tasksData.stream()
+                //predicate //lambda //t is data elm we are working on// returns a filtered stream
                 .filter((s) -> s instanceof Deadline)
                 .sorted((a, b) -> a.getDescription().toLowerCase().compareTo(b.getDescription().toLowerCase()))
                 //using lambda function as the comparator
